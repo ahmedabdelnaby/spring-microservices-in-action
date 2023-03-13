@@ -4,9 +4,7 @@ import com.optimagrowth.license.model.License;
 import com.optimagrowth.license.service.LicenseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController("/v1/organization/{organizationId}/license")
 public class LicenseController {
@@ -21,5 +19,12 @@ public class LicenseController {
         License license = licenseService.getLicense(licenseId, organizationId);
 
         return ResponseEntity.ok(license);
+    }
+
+    @PutMapping
+    public ResponseEntity<String> updateLicense(@PathVariable("organizationId") String organizationId,
+                                                @RequestBody License licenseRequest) {
+
+        return ResponseEntity.ok(licenseService.updateLicense(licenseRequest, organizationId));
     }
 }
