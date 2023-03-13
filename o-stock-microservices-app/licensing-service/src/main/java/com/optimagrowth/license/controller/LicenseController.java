@@ -27,4 +27,11 @@ public class LicenseController {
 
         return ResponseEntity.ok(licenseService.updateLicense(licenseRequest, organizationId));
     }
+
+    @PostMapping
+    public ResponseEntity<String> creatreLicense(@PathVariable("organizationId") String organizationId,
+                                                 @RequestBody License licenseRequest) {
+
+        return ResponseEntity.ok(licenseService.createLicense(licenseRequest, organizationId));
+    }
 }
