@@ -12,6 +12,13 @@ public class LicenseController {
     @Autowired
     private LicenseService licenseService;
 
+    @PostMapping
+    public ResponseEntity<String> createLicense(@PathVariable("organizationId") String organizationId,
+                                                @RequestBody License licenseRequest) {
+
+        return ResponseEntity.ok(licenseService.createLicense(licenseRequest, organizationId));
+    }
+
     @GetMapping("/{licenseId}")
     public ResponseEntity<License> getLicense(@PathVariable("organizationId") String organizationId,
                                               @PathVariable("licenseId") String licenseId) {
@@ -26,13 +33,6 @@ public class LicenseController {
                                                 @RequestBody License licenseRequest) {
 
         return ResponseEntity.ok(licenseService.updateLicense(licenseRequest, organizationId));
-    }
-
-    @PostMapping
-    public ResponseEntity<String> creatreLicense(@PathVariable("organizationId") String organizationId,
-                                                 @RequestBody License licenseRequest) {
-
-        return ResponseEntity.ok(licenseService.createLicense(licenseRequest, organizationId));
     }
 
     @DeleteMapping("/{licenseId}")
