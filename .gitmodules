@@ -1,0 +1,3 @@
+[submodule "simplee-service"]
+	path = simplee-service
+	url = https://github.com/ahmedabdelnaby/simplee-service.git
