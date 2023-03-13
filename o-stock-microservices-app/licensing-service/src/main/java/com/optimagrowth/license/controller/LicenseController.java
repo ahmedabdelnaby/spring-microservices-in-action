@@ -23,7 +23,7 @@ public class LicenseController {
     MessageSource messages;
 
     @PostMapping
-    public String createLicense(@PathVariable("organizationId") String organizationId,
+    public ResponseEntity<String> createLicense(@PathVariable("organizationId") String organizationId,
                                 @RequestBody License licenseRequest,
                                 @RequestHeader(value = "Accept-Language", required = false) Locale locale) { // receive the locale from the header attribute, if not provided, we'll use default locale
 
@@ -33,7 +33,7 @@ public class LicenseController {
             responseMessage = String.format(messages.getMessage("license.create.message", null, locale), licenseRequest.toString());
         }
 
-        return responseMessage;
+        return ResponseEntity.ok(responseMessage);
     }
 
     @GetMapping("/{licenseId}")
@@ -60,7 +60,7 @@ public class LicenseController {
     }
 
     @PutMapping
-    public String updateLicense(@PathVariable("organizationId") String organizationId,
+    public ResponseEntity<String> updateLicense(@PathVariable("organizationId") String organizationId,
                                 @RequestBody License licenseRequest) {
 
         String responseMessage = null;
@@ -69,7 +69,7 @@ public class LicenseController {
             responseMessage = String.format(messages.getMessage("license.update.message", null, null), licenseRequest.toString());
         }
 
-        return responseMessage;
+        return ResponseEntity.ok(responseMessage);
     }
 
     @DeleteMapping("/{licenseId}")
