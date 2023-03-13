@@ -2,6 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	<!-- tells Maven to include the Spring Boot starter kit dependencies -->
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -13,6 +14,8 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Licence Service</name>
 	<description>Ostock Licence Service</description>
+
+	<!-- By default, POM adds Java 6, so we need to override it to the version we need -->
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -21,6 +24,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
+		<!-- tells Maven to include the Spring Boot Web dependencies -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -50,6 +54,7 @@
 
 	<build>
 		<plugins>
+			<!-- tells Maven to include the Spring-specific Maven plugins for building and deploying Spring Boot applications -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
