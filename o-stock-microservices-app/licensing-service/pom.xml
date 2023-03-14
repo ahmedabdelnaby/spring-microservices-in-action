@@ -18,7 +18,9 @@
 	<!-- By default, POM adds Java 6, so we need to override it to the version we need -->
 	<properties>
 		<java.version>17</java.version>
+		<docker.image.prefix>ostock</docker.image.prefix>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -58,6 +60,32 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<!-- This plugin is used to create a docker image and publish the image to docker hub-->
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<version>1.4.13</version>
+				<configuration>
+					<!-- ostock/licensing-service -->
+					<repository>${docker.image.prefix}/${project.artifactId}</repository>
+					<!-- sets the repository tag with the project version -->
+					<tag>${project.version}</tag>
+					<buildArgs>
+						<!-- this value is used in the Dockerfile -->
+						<JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
+					</buildArgs>
+				</configuration>
+				<executions>
+					<execution>
+						<id>default</id>
+						<phase>install</phase>
+						<goals>
+							<goal>build</goal>
+							<goal>push</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
