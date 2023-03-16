@@ -1,5 +1,17 @@
 spring:
   application:
     name: config-server
+  profiles:
+    active:
+      - native, git # tells Spring Cloud Config, you'll read the config data from a filesystem
+  cloud:
+    config:
+      server: # Local configuration: This location can either of classpath or locations in the filesystem
+        native: # Reads from a specific filesystem folder
+#          search-locations: file:////home/ahmedabdelnaby # search location where the configuration files are stored
+          search-locations: classpath:/config # if we need to specify a root directory (resources/config/) for many config files
+        git:
+          uri: https://github.com/ihuaylupo/config.git
+          searchPaths: licensingservice
 server:
   port: 8071
