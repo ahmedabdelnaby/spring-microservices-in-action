@@ -44,6 +44,7 @@
 		</dependency>
 	</dependencies>
 	<!-- Spring Cloud BOM (Bill of Materials) definition -->
+	<!-- By using BOM, we can guarantee we'll use compatible versions of the subprojects in Spring CLoud-->
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
