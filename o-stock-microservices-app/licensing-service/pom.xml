@@ -87,6 +87,19 @@
 					</execution>
 				</executions>
 			</plugin>
+			<!-- customize the name of the image -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<image>
+						<name>${docker.image.prefix}/${project.artifactId}:latest</name>
+					</image>
+					<layers>
+						<enabled>true</enabled>
+					</layers>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 </project>
