@@ -12,8 +12,8 @@
 	<groupId>com.optimagrowth</groupId>
 	<artifactId>licensing-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Licence Service</name>
-	<description>Ostock Licence Service</description>
+	<name>License Service</name>
+	<description>Ostock License Service</description>
 
 	<!-- By default, POM adds Java 6, so we need to override it to the version we need -->
 	<properties>
