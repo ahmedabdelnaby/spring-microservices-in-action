@@ -21,7 +21,7 @@ services:
       timeout: 5s
       retries: 5
   configserver:
-    image: ostock/configserver:0.0.1-SNAPSHOT
+    image: ahmedabdelnaby/ostock-config-server:latest
     ports:
        - "8071:8071"
     environment:

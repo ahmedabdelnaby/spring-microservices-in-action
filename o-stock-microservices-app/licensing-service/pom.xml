@@ -11,14 +11,14 @@
 	</parent>
 	<groupId>com.optimagrowth</groupId>
 	<artifactId>licensing-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>latest</version>
 	<name>License Service</name>
 	<description>Ostock License Service</description>
 
 	<!-- By default, POM adds Java 6, so we need to override it to the version we need -->
 	<properties>
 		<java.version>17</java.version>
-		<docker.image.prefix>ostock</docker.image.prefix>
+		<docker.image.prefix>ahmedabdelnaby/ostock-</docker.image.prefix>
 	</properties>
 
 	<dependencies>
@@ -56,11 +56,6 @@
 
 	<build>
 		<plugins>
-			<!-- tells Maven to include the Spring-specific Maven plugins for building and deploying Spring Boot applications -->
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
 			<!-- This plugin is used to create a docker image and publish the image to docker hub-->
 			<plugin>
 				<groupId>com.spotify</groupId>
@@ -68,7 +63,7 @@
 				<version>1.4.13</version>
 				<configuration>
 					<!-- ostock/licensing-service -->
-					<repository>${docker.image.prefix}/${project.artifactId}</repository>
+					<repository>${docker.image.prefix}${project.artifactId}</repository>
 					<!-- sets the repository tag with the project version -->
 					<tag>${project.version}</tag>
 					<buildArgs>
@@ -87,13 +82,14 @@
 					</execution>
 				</executions>
 			</plugin>
+			<!-- tells Maven to include the Spring-specific Maven plugins for building and deploying Spring Boot applications -->
 			<!-- customize the name of the image -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<image>
-						<name>${docker.image.prefix}/${project.artifactId}:latest</name>
+						<name>${docker.image.prefix}${project.artifactId}:latest</name>
 					</image>
 					<layers>
 						<enabled>true</enabled>

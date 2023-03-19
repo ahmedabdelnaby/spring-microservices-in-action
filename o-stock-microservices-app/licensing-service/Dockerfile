@@ -11,8 +11,11 @@ FROM openjdk:17-jdk-slim
 WORKDIR application
 
 COPY --from=build dependencies/ ./
+RUN true
 COPY --from=build spring-boot-loader/ ./
+RUN true
 COPY --from=build snapshot-dependencies/ ./
+RUN true
 COPY --from=build application/ ./
 
 #execute the application
