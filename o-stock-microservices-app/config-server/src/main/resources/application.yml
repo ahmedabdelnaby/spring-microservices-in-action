@@ -12,7 +12,7 @@ spring:
           search-locations: classpath:/config # if we need to specify a root directory (resources/config/) for many config files
         git:
           default-label: master # the branch name for the below repo
-          uri: https://github.com/ihuaylupo/config.git
+          uri: https://github.com/ahmedabdelnaby/ostock-config.git
           searchPaths: licensing-service
 server:
   port: 8071
