@@ -1,5 +1,6 @@
 package com.optimagrowth.license.service;
 
+import com.optimagrowth.license.config.ServiceConfig;
 import com.optimagrowth.license.model.License;
 import com.optimagrowth.license.repository.LicenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
+import java.util.UUID;
 
 @Service
 public class LicenseService {
@@ -18,13 +20,13 @@ public class LicenseService {
     @Autowired
     ServiceConfig config;
 
-    public License getLicense(String licenseId, String organizationId) {
+    public License getLicense(String licenseId, String organizationId) throws IllegalArgumentException {
         License license = licenseRepository.findByOrganizationIdAndLicenseId(licenseId, organizationId);
 
-        if (null == license) {
+        if (license == null) {
             throw new IllegalArgumentException(
                     String.format(messages.getMessage(
-                            "license.search.error.message", null, null, licenseId, organizationId)));
+                            "license.search.error.message", null, null), licenseId, organizationId));
         }
 
         return license.withComment(config.getProperty());
@@ -49,7 +51,7 @@ public class LicenseService {
         license.setLicenseId(licenseId);
         licenseRepository.delete(license);
 
-        responseMessage = String.format(messages.getMessage("license.delete.message"), null, null);
+        responseMessage = String.format(messages.getMessage("license.delete.message", null, null));
 
         return responseMessage;
     }
