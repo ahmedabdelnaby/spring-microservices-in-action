@@ -1,6 +1,9 @@
 package com.optimagrowth.license.service;
 
 import com.optimagrowth.license.model.License;
+import com.optimagrowth.license.repository.LicenseRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
@@ -8,41 +11,45 @@ import java.util.Random;
 @Service
 public class LicenseService {
 
+    @Autowired
+    MessageSource messages;
+    @Autowired
+    private LicenseRepository licenseRepository;
+    @Autowired
+    ServiceConfig config;
+
     public License getLicense(String licenseId, String organizationId) {
-        License license = new License();
-        license.setId(new Random().nextInt(1000));
-        license.setLicenseId(licenseId);
-        license.setOrganizationId(organizationId);
-        license.setDescription("Software Product");
-        license.setProductName("OStock");
-        license.setLicenseType("full");
+        License license = licenseRepository.findByOrganizationIdAndLicenseId(licenseId, organizationId);
 
-        return license;
-    }
-
-    public String createLicense(License license, String organizationId) {
-        String responseMessage = null;
-        if (license != null) {
-            license.setOrganizationId(organizationId);
-            responseMessage = String.format("This is the post and the object is: %s", license.toString());
+        if (null == license) {
+            throw new IllegalArgumentException(
+                    String.format(messages.getMessage(
+                            "license.search.error.message", null, null, licenseId, organizationId)));
         }
 
-        return responseMessage;
+        return license.withComment(config.getProperty());
     }
 
-    public String updateLicense(License license, String organizationId) {
-        String responseMessage = null;
-        if (license != null) {
-            license.setOrganizationId(organizationId);
-            responseMessage = String.format("This is the put and the object is: %s", license.toString());
-        }
+    public License createLicense(License license, String organizationId) {
+        license.setLicenseId(UUID.randomUUID().toString());
+        licenseRepository.save(license);
 
-        return responseMessage;
+        return license.withComment(config.getProperty());
+    }
+
+    public License updateLicense(License license, String organizationId) {
+        licenseRepository.save(license);
+
+        return license.withComment(config.getProperty());
     }
 
     public String deleteLicense(String licenseId, String organizationId) {
         String responseMessage = null;
-        responseMessage = String.format("Deleting license with id %s for the organization %s", licenseId, organizationId);
+        License license = new License();
+        license.setLicenseId(licenseId);
+        licenseRepository.delete(license);
+
+        responseMessage = String.format(messages.getMessage("license.delete.message"), null, null);
 
         return responseMessage;
     }
