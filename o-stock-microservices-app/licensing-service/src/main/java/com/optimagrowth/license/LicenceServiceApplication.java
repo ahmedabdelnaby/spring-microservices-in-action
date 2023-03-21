@@ -11,7 +11,6 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import java.util.Locale;
 
 @SpringBootApplication
-@EnableConfigurationProperties
 @RefreshScope // refresh the custom properties from Spring Config server (not the built-in properties like DB properties)
 public class LicenceServiceApplication {
 

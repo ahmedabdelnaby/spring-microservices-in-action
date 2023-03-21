@@ -24,8 +24,8 @@ public class LicenseController {
 
     @PostMapping
     public ResponseEntity<String> createLicense(@PathVariable("organizationId") String organizationId,
-                                @RequestBody License licenseRequest,
-                                @RequestHeader(value = "Accept-Language", required = false) Locale locale) { // receive the locale from the header attribute, if not provided, we'll use default locale
+                                                @RequestBody License licenseRequest,
+                                                @RequestHeader(value = "Accept-Language", required = false) Locale locale) { // receive the locale from the header attribute, if not provided, we'll use default locale
 
         String responseMessage = null;
         if (licenseRequest != null) {
