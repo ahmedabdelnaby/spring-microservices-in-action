@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: eureka-server   # the application name that we should use in the Spring Config server and its config repo files
+  cloud:
+    config:
+      uri: http://localhost:8071    # tells Eureka where is the Config server will connect to retrieve the configurations
+      loadbalancer:
+        ribbon:
+          enabled: false    # disable Ribbon as our load balancer
