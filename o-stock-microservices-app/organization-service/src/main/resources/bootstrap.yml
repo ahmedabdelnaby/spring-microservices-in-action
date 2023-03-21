@@ -1,9 +1,9 @@
 spring:
     application:
-     name: organization-service 
+     name: organization-service     # logical name of the service that will be registered with Eureka (application ID, and the instance ID will be randomly generated)
     profiles:
       active: dev
     cloud:
         config: 
-            uri: http://configserver:8071
+            uri: http://locahost:8071       # the configuration server that will call to take its configurations
 
