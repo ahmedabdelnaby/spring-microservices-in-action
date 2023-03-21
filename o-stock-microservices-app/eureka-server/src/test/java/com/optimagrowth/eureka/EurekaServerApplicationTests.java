@@ -1,4 +1,4 @@
-package com.optima.growth.eureka;
+package com.optimagrowth.eureka;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -8,7 +8,7 @@ server:
   port: 8070    # sets the listening port for the EUREKA server
 eureka:
   instance:
-    hostname: eureka-server      # sets the Eureka instance hostname
+    hostname: localhost      # sets the Eureka instance hostname
   client:
     registerWithEureka: false       # tells the Config server to not register with the Eureka service
     fetchRegistry: false        # and not cache the registry information locally
@@ -16,8 +16,6 @@ eureka:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/        # provide the service URL
   server:
     waitTimeInMsWhenSyncEmpty: 5        # sets the initial time to wait before the server takes requests
-      
-      
 management:
   endpoints:
     web:

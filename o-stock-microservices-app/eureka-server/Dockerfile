@@ -3,7 +3,7 @@
 FROM openjdk:17-jdk-slim as build
 
 # Add Maintainer Info
-LABEL maintainer="Ahmed AbdELnaby <ahmed.abdelnaby.gad@gmail.com>"
+LABEL maintainer="Ahmed AbdElnaby <ahmed.abdelnaby.gad@gmail.com>"
 
 # The application's jar file
 ARG JAR_FILE
@@ -28,4 +28,4 @@ COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
 
 #execute the application
-ENTRYPOINT ["java","-cp","app:app/lib/*","com.optimagrowth.license.LicenceServiceApplication"]
+ENTRYPOINT ["java","-cp","app:app/lib/*","com.optimagrowth.eureka.EurekaServerApplication"]

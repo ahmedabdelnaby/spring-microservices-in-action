@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.0.4</version>
+		<version>2.7.9</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
@@ -16,11 +16,10 @@
 	<name>License Service</name>
 	<description>Ostock License Service</description>
 
-	<!-- By default, POM adds Java 6, so we need to override it to the version we need -->
 	<properties>
 		<java.version>17</java.version>
+		<spring-cloud.version>2021.0.4</spring-cloud.version>
 		<docker.image.prefix>ahmedabdelnaby/ostock-</docker.image.prefix>
-		<spring-cloud.version>2022.0.1</spring-cloud.version>
 	</properties>
 
 	<dependencies>
@@ -93,6 +92,7 @@
 				<version>1.4.13</version>
 				<configuration>
 					<!-- ostock/licensing-service -->
+					<!--suppress UnresolvedMavenProperty -->
 					<repository>${docker.image.prefix}${project.artifactId}</repository>
 					<!-- sets the repository tag with the project version -->
 					<tag>${project.version}</tag>
@@ -119,6 +119,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<image>
+						<!--suppress UnresolvedMavenProperty -->
 						<name>${docker.image.prefix}${project.artifactId}:latest</name>
 					</image>
 					<layers>
