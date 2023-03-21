@@ -22,20 +22,6 @@ public class LicenseController {
     @Autowired
     MessageSource messages;
 
-    @PostMapping
-    public ResponseEntity<String> createLicense(@PathVariable("organizationId") String organizationId,
-                                                @RequestBody License licenseRequest,
-                                                @RequestHeader(value = "Accept-Language", required = false) Locale locale) { // receive the locale from the header attribute, if not provided, we'll use default locale
-
-        String responseMessage = null;
-        if (licenseRequest != null) {
-            licenseRequest.setOrganizationId(organizationId);
-            responseMessage = String.format(messages.getMessage("license.create.message", null, locale), licenseRequest.toString());
-        }
-
-        return ResponseEntity.ok(responseMessage);
-    }
-
     @GetMapping("/{licenseId}")
     public ResponseEntity<License> getLicense(@PathVariable("organizationId") String organizationId,
                                               @PathVariable("licenseId") String licenseId) {
@@ -57,6 +43,28 @@ public class LicenseController {
                         .withRel("deleteLicense"));
 
          return ResponseEntity.ok(license);
+    }
+
+    @GetMapping("/{licenseId}/{clientType}")
+    public License getLicensesWithClient( @PathVariable("organizationId") String organizationId,
+                                          @PathVariable("licenseId") String licenseId,
+                                          @PathVariable("clientType") String clientType) {
+
+        return licenseService.getLicense(licenseId, organizationId, clientType);
+    }
+
+    @PostMapping
+    public ResponseEntity<String> createLicense(@PathVariable("organizationId") String organizationId,
+                                                @RequestBody License licenseRequest,
+                                                @RequestHeader(value = "Accept-Language", required = false) Locale locale) { // receive the locale from the header attribute, if not provided, we'll use default locale
+
+        String responseMessage = null;
+        if (licenseRequest != null) {
+            licenseRequest.setOrganizationId(organizationId);
+            responseMessage = String.format(messages.getMessage("license.create.message", null, locale), licenseRequest.toString());
+        }
+
+        return ResponseEntity.ok(responseMessage);
     }
 
     @PutMapping
