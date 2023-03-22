@@ -13,12 +13,13 @@ public class OrganizationRestTemplateClient {
     @Autowired
     RestTemplate restTemplate;
 
-    public Organization getOrganization(String organizationId){
+    public Organization getOrganization(String organizationId) {
+        // when using a Load Balancer-backed RestTemplate, builds the target URL with the Eureka service ID
         ResponseEntity<Organization> restExchange =
-                restTemplate.exchange(
-                        "http://organization-service/v1/organization/{organizationId}",
-                        HttpMethod.GET,
-                        null, Organization.class, organizationId);
+                                            restTemplate.exchange(
+                                                    "http://organization-service/v1/organization/{organizationId}",
+                                                        HttpMethod.GET,
+                                                    null, Organization.class, organizationId);
 
         return restExchange.getBody();
     }

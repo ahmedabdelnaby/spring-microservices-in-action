@@ -16,20 +16,22 @@ import com.optimagrowth.license.model.Organization;
 public class OrganizationDiscoveryClient {
 
     @Autowired
-    private DiscoveryClient discoveryClient;
+    private DiscoveryClient discoveryClient;    // inject the Discovery Client
 
     public Organization getOrganization(String organizationId) {
         RestTemplate restTemplate = new RestTemplate();
+        // gets a list of all instances of Organization services using the application name defined in the service's bootstrap.yml file
         List<ServiceInstance> instances = discoveryClient.getInstances("organization-service");
 
         if (instances.size() == 0) return null;
-        String serviceUri = String.format("%s/v1/organization/%s", instances.get(0).getUri().toString(), organizationId);
-    
-        ResponseEntity< Organization > restExchange =
-                                            restTemplate.exchange(
-                                                    serviceUri,
-                                                    HttpMethod.GET,
-                                                    null, Organization.class, organizationId);
+        String serviceUri = String.format("%s/v1/organization/%s", instances.get(0).getUri().toString(), organizationId);       // retrieves the service endpoint
+
+        // uses a standard Spring RestTemplate class to call the service
+        ResponseEntity<Organization> restExchange =
+                                                restTemplate.exchange(
+                                                                    serviceUri,
+                                                                    HttpMethod.GET,
+                                                                    null, Organization.class, organizationId);
 
         return restExchange.getBody();
     }

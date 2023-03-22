@@ -42,16 +42,16 @@ public class LicenseService {
         return license.withComment(config.getProperty());
     }
 
-    public License getLicense(String licenseId, String organizationId, String clientType){
+    public License getLicense(String licenseId, String organizationId, String clientType) {
         License license = licenseRepository.findByOrganizationIdAndLicenseId(organizationId, licenseId);
-        if (null == license) {
+        if (license == null) {
             throw new IllegalArgumentException(String.format(
                                                         messages.getMessage("license.search.error.message",
                                                                                                     null, null),licenseId, organizationId));
         }
 
         Organization organization = retrieveOrganizationInfo(organizationId, clientType);
-        if (null != organization) {
+        if (organization != null) {
             license.setOrganizationName(organization.getName());
             license.setContactName(organization.getContactName());
             license.setContactEmail(organization.getContactEmail());
@@ -65,20 +65,19 @@ public class LicenseService {
         Organization organization = null;
 
         switch (clientType) {
-            case "feign":
+            case "feign" -> {
                 System.out.println("I am using the feign client");
                 organization = organizationFeignClient.getOrganization(organizationId);
-                break;
-            case "rest":
+            }
+            case "rest" -> {
                 System.out.println("I am using the rest client");
                 organization = organizationRestClient.getOrganization(organizationId);
-                break;
-            case "discovery":
+            }
+            case "discovery" -> {
                 System.out.println("I am using the discovery client");
                 organization = organizationDiscoveryClient.getOrganization(organizationId);
-                break;
-            default:
-                organization = organizationRestClient.getOrganization(organizationId);
+            }
+            default -> organization = organizationRestClient.getOrganization(organizationId);
         }
 
         return organization;
